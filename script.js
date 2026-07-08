@@ -606,6 +606,8 @@ isMobile ? 160 : 120,
 
 strength:0
 
+revealedTimer:0
+
 },
 
 
@@ -626,6 +628,8 @@ isMobile ? 160 : 120,
 
 strength:0
 
+revealedTimer:0
+    
 },
 
 
@@ -646,6 +650,8 @@ isMobile ? 160 : 120,
 
 strength:0
 
+revealedTimer:0
+    
 },
 
 
@@ -666,6 +672,8 @@ isMobile ? 160 : 120,
 
 strength:0
 
+revealedTimer:0
+    
 }
 
 
@@ -718,11 +726,13 @@ f.y-f.homeY,
 
 
 
-if(movement<8){
+if(movement < 8){
 
 return;
 
 }
+
+
 
 
 
@@ -768,21 +778,33 @@ mouse.y-p.y,
 
 
 
+
 if(
 
-fragmentDistance<p.radius &&
+fragmentDistance < p.radius &&
 
-cursorDistance<FORCE_RADIUS
+cursorDistance < FORCE_RADIUS
 
 ){
 
 
 p.strength +=
-movement*0.0025;
+movement *
+(isMobile ? 0.004 : 0.0025);
+
+
+
+if(p.strength > 0.30){
+
+
+p.revealedTimer =
+isMobile ? 240 : 120;
 
 
 }
 
+
+}
 
 
 });
@@ -790,13 +812,16 @@ movement*0.0025;
 
 
 
+
+
+
 portals.forEach(p=>{
 
 
-p.strength *= isMobile ? 0.995 : 0.985;
+if(p.revealedTimer > 0){
 
 
-if(p.strength>0.30){
+p.revealedTimer--;
 
 
 p.element.classList.add(
@@ -809,9 +834,29 @@ p.element.classList.add(
 else{
 
 
+p.strength *=
+isMobile ? 0.995 : 0.985;
+
+
+
+if(p.strength > 0.30){
+
+
+p.element.classList.add(
+"revealed"
+);
+
+
+}
+else{
+
+
 p.element.classList.remove(
 "revealed"
 );
+
+
+}
 
 
 }
@@ -822,8 +867,6 @@ p.element.classList.remove(
 
 
 }
-
-
 
 
 
