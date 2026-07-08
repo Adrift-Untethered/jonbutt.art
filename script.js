@@ -458,17 +458,55 @@ f.rotationDirection;
 
 
 
-f.vx +=
-(f.homeX-f.x)
-*
-f.spring;
+let nearOpenPortal = false;
 
 
-f.vy +=
-(f.homeY-f.y)
-*
-f.spring;
+portals.forEach(p=>{
 
+
+    if(p.revealedTimer > 0){
+
+
+        let distance =
+        Math.sqrt(
+
+            Math.pow(f.homeX-p.x,2)
+            +
+            Math.pow(f.homeY-p.y,2)
+
+        );
+
+
+        if(distance < p.radius){
+
+            nearOpenPortal = true;
+
+        }
+
+
+    }
+
+
+});
+
+
+
+if(!nearOpenPortal){
+
+
+    f.vx +=
+    (f.homeX-f.x)
+    *
+    f.spring;
+
+
+    f.vy +=
+    (f.homeY-f.y)
+    *
+    f.spring;
+
+
+}
 
 
 
@@ -797,7 +835,7 @@ if(p.strength > 0.30){
 
 
 p.revealedTimer =
-isMobile ? 240 : 120;
+isMobile ? 360 : 120;
 
 
 }
