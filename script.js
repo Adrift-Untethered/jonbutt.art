@@ -509,7 +509,7 @@ if(nearOpenPortal){
 
 
     healingStrength *=
-    isMobile ? 0.05 : 0.15;
+    isMobile ? 0.35 : 0.15;
 
 
 }
