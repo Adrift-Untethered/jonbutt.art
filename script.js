@@ -491,22 +491,31 @@ portals.forEach(p=>{
 
 
 
-if(!nearOpenPortal){
+let healingStrength =
+f.spring;
 
 
-    f.vx +=
-    (f.homeX-f.x)
-    *
-    f.spring;
+if(nearOpenPortal){
 
-
-    f.vy +=
-    (f.homeY-f.y)
-    *
-    f.spring;
-
+    healingStrength *= 0.15;
 
 }
+
+
+
+f.vx +=
+(f.homeX-f.x)
+*
+healingStrength;
+
+
+f.vy +=
+(f.homeY-f.y)
+*
+healingStrength;
+
+
+
 
 
 
