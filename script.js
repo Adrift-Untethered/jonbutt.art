@@ -3,40 +3,79 @@ const ctx = canvas.getContext("2d");
 
 const cursor = document.getElementById("cursor");
 
+
 let width;
 let height;
 
+
 const image = new Image();
 image.src = "images/wallcoverpage.jpg";
+
 
 let fragments = [];
 let dust = [];
 let textParticles = [];
 let portals = [];
 
+
 let mouse = {
+
     x:-1000,
     y:-1000
+
 };
 
 
-const COLS = 65;
-const ROWS = 43;
 
-const FORCE_RADIUS = 180;
+const isMobile =
+window.innerWidth < 768;
 
-const DUST_COUNT = 250;
+
+
+const COLS =
+isMobile ? 35 : 65;
+
+
+const ROWS =
+isMobile ? 23 : 43;
+
+
+
+const FORCE_RADIUS =
+isMobile ? 130 : 180;
+
+
+
+const DUST_COUNT =
+isMobile ? 80 : 250;
+
+
+
+
+
 
 
 
 function resize(){
 
-    width = canvas.width = window.innerWidth;
-    height = canvas.height = window.innerHeight;
+width =
+canvas.width =
+window.innerWidth;
+
+
+height =
+canvas.height =
+window.innerHeight;
+
 
 }
 
-window.addEventListener("resize", resize);
+
+window.addEventListener(
+"resize",
+resize
+);
+
 
 resize();
 
@@ -44,23 +83,33 @@ resize();
 
 
 
+
+
+
+
 function placement(){
 
-    const scale = Math.max(
-        width / image.width,
-        height / image.height
-    );
+
+const scale =
+Math.max(
+width/image.width,
+height/image.height
+);
 
 
-    return {
 
-        scale,
+return {
 
-        x:(width-image.width*scale)/2,
+scale,
 
-        y:(height-image.height*scale)/2
+x:
+(width-image.width*scale)/2,
 
-    };
+y:
+(height-image.height*scale)/2
+
+};
+
 
 }
 
@@ -68,17 +117,24 @@ function placement(){
 
 
 
+
+
+
+
 image.onload = ()=>{
 
-    createFragments();
 
-    createDust();
+createFragments();
 
-    createTextParticles();
+createDust();
 
-    createPortals();
+createTextParticles();
 
-    animate();
+createPortals();
+
+
+animate();
+
 
 };
 
@@ -90,160 +146,187 @@ image.onload = ()=>{
 
 
 
-// -------------------------
+// =========================
 // FRAGMENTS
-// -------------------------
+// =========================
+
 
 function createFragments(){
 
-    const p = placement();
 
+const p =
+placement();
 
-    const fw = image.width / COLS;
-    const fh = image.height / ROWS;
 
 
-    const screenFW = fw * p.scale;
-    const screenFH = fh * p.scale;
+const fw =
+image.width/COLS;
 
 
+const fh =
+image.height/ROWS;
 
-    for(let y=0;y<ROWS;y++){
 
-        for(let x=0;x<COLS;x++){
 
+const screenFW =
+fw*p.scale;
 
-            let personality =
-            Math.random();
 
+const screenFH =
+fh*p.scale;
 
 
-            let fragment = {
 
 
-                sx:x*fw,
-                sy:y*fh,
 
+for(let y=0;y<ROWS;y++){
 
-                sw:fw,
-                sh:fh,
 
+for(let x=0;x<COLS;x++){
 
-                x:
-                p.x+x*screenFW,
 
 
-                y:
-                p.y+y*screenFH,
+let personality =
+Math.random();
 
 
-                homeX:
-                p.x+x*screenFW,
 
+let fragment = {
 
-                homeY:
-                p.y+y*screenFH,
 
+sx:x*fw,
 
-                w:screenFW,
-                h:screenFH,
+sy:y*fh,
 
 
-                vx:0,
-                vy:0,
+sw:fw,
 
+sh:fh,
 
-                rotation:0,
 
 
-                rotationVelocity:0,
+x:
+p.x+x*screenFW,
 
 
-                rotationDirection:
-                Math.random()<0.5 ? -1 : 1,
+y:
+p.y+y*screenFH,
 
 
 
-                mass:1,
+homeX:
+p.x+x*screenFW,
 
-                spring:0.018,
 
+homeY:
+p.y+y*screenFH,
 
-                rotationResistance:0.90,
 
 
-                visualScale:1,
+w:screenFW,
 
-                opacity:1
+h:screenFH,
 
 
-            };
 
+vx:0,
 
+vy:0,
 
 
 
-            if(personality < 0.15){
+rotation:0,
 
 
-                fragment.mass = 2.5;
+rotationVelocity:0,
 
-                fragment.spring = 0.012;
 
-                fragment.rotationResistance = 0.96;
 
-                fragment.visualScale = 1.04;
+rotationDirection:
+Math.random()<0.5 ? -1 : 1,
 
-                fragment.opacity = 1;
 
 
-            }
+mass:1,
 
+spring:0.018,
 
-            else if(personality < 0.75){
 
+rotationResistance:0.90,
 
-                fragment.mass = 1.2;
 
-                fragment.spring = 0.018;
+visualScale:1,
 
-                fragment.rotationResistance = 0.90;
 
-                fragment.visualScale = 1;
+opacity:1
 
-                fragment.opacity = 0.95;
 
+};
 
-            }
 
 
-            else{
 
 
-                fragment.mass = 0.5;
+if(personality < 0.15){
 
-                fragment.spring = 0.026;
 
-                fragment.rotationResistance = 0.82;
+fragment.mass=2.5;
 
-                fragment.visualScale = 0.98;
+fragment.spring=0.012;
 
-                fragment.opacity = 0.65;
+fragment.rotationResistance=0.96;
 
+fragment.visualScale=1.04;
 
-            }
+fragment.opacity=1;
 
 
+}
 
 
-            fragments.push(fragment);
+else if(personality < 0.75){
 
 
+fragment.mass=1.2;
 
-        }
+fragment.spring=0.018;
 
+fragment.rotationResistance=0.90;
 
-    }
+fragment.visualScale=1;
+
+fragment.opacity=0.95;
+
+
+}
+
+
+else{
+
+
+fragment.mass=0.5;
+
+fragment.spring=0.026;
+
+fragment.rotationResistance=0.82;
+
+fragment.visualScale=0.98;
+
+fragment.opacity=0.65;
+
+
+}
+
+
+
+
+fragments.push(fragment);
+
+
+
+}
+
+}
 
 
 }
@@ -258,31 +341,37 @@ function createFragments(){
 
 function drawBackground(){
 
-    const p = placement();
+
+const p =
+placement();
 
 
-    ctx.globalAlpha = 0.18;
+
+ctx.globalAlpha=0.18;
 
 
-    ctx.drawImage(
 
-        image,
+ctx.drawImage(
 
-        p.x,
+image,
 
-        p.y,
+p.x,
 
-        image.width*p.scale,
+p.y,
 
-        image.height*p.scale
+image.width*p.scale,
 
-    );
+image.height*p.scale
+
+);
 
 
-    ctx.globalAlpha=1;
+
+ctx.globalAlpha=1;
 
 
 }
+
 
 
 
@@ -297,186 +386,183 @@ function drawFragments(){
 fragments.forEach(f=>{
 
 
-    let dx =
-    f.x-mouse.x;
+let dx =
+f.x-mouse.x;
 
 
-    let dy =
-    f.y-mouse.y;
+let dy =
+f.y-mouse.y;
 
 
 
-    let distance =
-    Math.sqrt(
-        dx*dx+
-        dy*dy
-    );
+let distance =
+Math.sqrt(
+dx*dx+
+dy*dy
+);
 
 
 
 
-    if(
-        distance < FORCE_RADIUS &&
-        distance > 0
-    ){
+if(
+distance<FORCE_RADIUS &&
+distance>0
+){
 
 
-        let influence =
-        1 -
-        (distance/FORCE_RADIUS);
+let influence =
+1-(distance/FORCE_RADIUS);
 
 
 
-        influence =
-        influence * influence;
+influence*=influence;
 
 
 
-        let force =
-        (influence*2.8)
-        /
-        f.mass;
+let force =
+(influence*2.8)
+/
+f.mass;
 
 
 
-        f.vx +=
-        (dx/distance)
-        *
-        force;
+f.vx +=
+(dx/distance)
+*
+force;
 
 
 
-        f.vy +=
-        (dy/distance)
-        *
-        force;
+f.vy +=
+(dy/distance)
+*
+force;
 
 
 
+f.rotationVelocity +=
 
-        f.rotationVelocity +=
-        (
-            influence *
-            0.025 /
-            f.mass
-        )
-        *
-        f.rotationDirection;
+(
+influence*
+0.025/
+f.mass
+)
+*
+f.rotationDirection;
 
 
-    }
+}
 
 
 
 
 
-    // healing
 
-    f.vx +=
-    (f.homeX-f.x)
-    *
-    f.spring;
+f.vx +=
+(f.homeX-f.x)
+*
+f.spring;
 
 
-    f.vy +=
-    (f.homeY-f.y)
-    *
-    f.spring;
+f.vy +=
+(f.homeY-f.y)
+*
+f.spring;
 
 
 
 
+f.vx*=0.90;
 
-    f.vx*=0.90;
+f.vy*=0.90;
 
-    f.vy*=0.90;
 
 
+f.x+=f.vx;
 
-    f.x+=f.vx;
+f.y+=f.vy;
 
-    f.y+=f.vy;
 
 
+checkPortalReveal(f);
 
-    checkPortalReveal(f);
 
 
 
+f.rotation +=
+f.rotationVelocity;
 
-    f.rotation +=
-    f.rotationVelocity;
 
 
+f.rotationVelocity *=
+f.rotationResistance;
 
-    f.rotationVelocity *=
-    f.rotationResistance;
 
 
+f.rotation*=0.92;
 
-    f.rotation*=0.92;
 
 
 
 
 
 
-    ctx.save();
+ctx.save();
 
 
 
-    ctx.globalAlpha =
-    f.opacity;
+ctx.globalAlpha =
+f.opacity;
 
 
 
-    ctx.translate(
+ctx.translate(
 
-        f.x+f.w/2,
+f.x+f.w/2,
 
-        f.y+f.h/2
+f.y+f.h/2
 
-    );
+);
 
 
 
-    ctx.rotate(
-        f.rotation
-    );
+ctx.rotate(
+f.rotation
+);
 
 
 
-    ctx.drawImage(
+ctx.drawImage(
 
-        image,
+image,
 
-        f.sx,
+f.sx,
 
-        f.sy,
+f.sy,
 
-        f.sw,
+f.sw,
 
-        f.sh,
+f.sh,
 
 
-        -f.w/2,
+-f.w/2,
 
-        -f.h/2,
+-f.h/2,
 
 
-        f.w*f.visualScale,
+f.w*f.visualScale,
 
-        f.h*f.visualScale
+f.h*f.visualScale
 
-    );
+);
 
 
 
-    ctx.restore();
+ctx.restore();
 
 
 
-    ctx.globalAlpha = 1;
+ctx.globalAlpha=1;
 
 
 
@@ -492,76 +578,90 @@ fragments.forEach(f=>{
 
 
 
-// -------------------------
+
+// =========================
 // PORTALS
-// -------------------------
+// =========================
+
 
 function createPortals(){
 
 
-portals = [
+portals=[
+
 
 {
-    element:
-    document.getElementById("workPortal"),
 
-    x:
-    window.innerWidth * 0.70,
+element:
+document.getElementById("workPortal"),
 
-    y:
-    window.innerHeight * 0.35,
+x:
+width*0.70,
 
-    radius:120,
+y:
+height*0.35,
 
-    strength:0
+radius:120,
+
+strength:0
+
 },
 
 
+
 {
-    element:
-    document.getElementById("archivePortal"),
 
-    x:
-    window.innerWidth * 0.78,
+element:
+document.getElementById("archivePortal"),
 
-    y:
-    window.innerHeight * 0.68,
+x:
+width*0.65,
 
-    radius:120,
+y:
+height*0.70,
 
-    strength:0
+radius:120,
+
+strength:0
+
 },
 
 
+
 {
-    element:
-    document.getElementById("aboutPortal"),
 
-    x:
-    window.innerWidth * 0.30,
+element:
+document.getElementById("aboutPortal"),
 
-    y:
-    window.innerHeight * 0.78,
+x:
+width*0.30,
 
-    radius:120,
+y:
+height*0.75,
 
-    strength:0
+radius:120,
+
+strength:0
+
 },
 
 
+
 {
-    element:
-    document.getElementById("contactPortal"),
 
-    x:
-    window.innerWidth * 0.55,
+element:
+document.getElementById("contactPortal"),
 
-    y:
-    window.innerHeight * 0.22,
+x:
+width*0.55,
 
-    radius:120,
+y:
+height*0.22,
 
-    strength:0
+radius:120,
+
+strength:0
+
 }
 
 
@@ -592,7 +692,6 @@ p.y+"px";
 
 
 
-
 function checkPortalReveal(f){
 
 
@@ -615,13 +714,11 @@ f.y-f.homeY,
 
 
 
-if(movement < 8){
+if(movement<8){
 
 return;
 
 }
-
-
 
 
 
@@ -667,25 +764,21 @@ mouse.y-p.y,
 
 
 
-
-// portal reveals only when:
-// - fragments are disturbed near it
-// - cursor is actually there
-
 if(
 
-fragmentDistance < p.radius &&
+fragmentDistance<p.radius &&
 
-cursorDistance < FORCE_RADIUS
+cursorDistance<FORCE_RADIUS
 
 ){
 
 
 p.strength +=
-movement * 0.003;
+movement*0.0025;
 
 
 }
+
 
 
 });
@@ -693,17 +786,14 @@ movement * 0.003;
 
 
 
-
-
-
 portals.forEach(p=>{
 
 
-p.strength *= 0.96;
+p.strength*=0.985;
 
 
 
-if(p.strength > 0.30){
+if(p.strength>0.30){
 
 
 p.element.classList.add(
@@ -724,6 +814,7 @@ p.element.classList.remove(
 }
 
 
+
 });
 
 
@@ -732,14 +823,21 @@ p.element.classList.remove(
 
 
 
-// -------------------------
+
+
+
+
+
+// =========================
 // DUST
-// -------------------------
+// =========================
 
 
 function createDust(){
 
+
 for(let i=0;i<DUST_COUNT;i++){
+
 
 dust.push({
 
@@ -760,9 +858,8 @@ Math.random()*0.12
 
 }
 
+
 }
-
-
 
 
 
@@ -777,6 +874,7 @@ dust.forEach(d=>{
 d.y-=d.speed;
 
 
+
 if(d.y<0){
 
 d.y=height;
@@ -785,8 +883,9 @@ d.y=height;
 
 
 
-ctx.fillStyle =
+ctx.fillStyle=
 "rgba(230,230,230,0.1)";
+
 
 
 ctx.fillRect(
@@ -815,19 +914,25 @@ d.size
 
 
 
-// -------------------------
-// TEXT SYSTEM
-// -------------------------
+// =========================
+// TEXT
+// =========================
 
 
 function createTextParticles(){
+
 
 const text =
 document.getElementById("archiveText");
 
 
+if(!text) return;
+
+
+
 const nodes =
 Array.from(text.childNodes);
+
 
 
 text.innerHTML="";
@@ -879,11 +984,9 @@ vx:0,
 vy:0,
 
 mass:
-0.5+
-Math.random()*1.5,
+0.5+Math.random()*1.5,
 
-spring:
-0.06
+spring:0.06
 
 
 });
@@ -925,19 +1028,14 @@ function drawTextPhysics(){
 textParticles.forEach(t=>{
 
 
-let dx =
-t.x-mouse.x;
+let dx=t.x-mouse.x;
 
-
-let dy =
-t.y-mouse.y;
-
+let dy=t.y-mouse.y;
 
 
 let distance =
 Math.sqrt(
-dx*dx+
-dy*dy
+dx*dx+dy*dy
 );
 
 
@@ -949,8 +1047,7 @@ distance>0
 
 
 let force =
-(140-distance)
-/140;
+(140-distance)/140;
 
 
 
@@ -959,8 +1056,7 @@ t.vx +=
 *
 force
 *
-2.5
-/
+2.5/
 t.mass;
 
 
@@ -970,8 +1066,7 @@ t.vy +=
 *
 force
 *
-2.5
-/
+2.5/
 t.mass;
 
 
@@ -993,7 +1088,6 @@ t.spring;
 
 
 
-
 t.vx*=0.78;
 
 t.vy*=0.78;
@@ -1006,12 +1100,14 @@ t.y+=t.vy;
 
 
 
-t.element.style.transform =
+t.element.style.transform=
+
 `
 translate(
 ${t.x-t.homeX}px,
 ${t.y-t.homeY}px
 )
+
 `;
 
 
@@ -1030,6 +1126,7 @@ ${t.y-t.homeY}px
 
 
 function animate(){
+
 
 ctx.clearRect(
 0,
@@ -1064,6 +1161,12 @@ animate
 
 
 
+
+// =========================
+// INPUT
+// =========================
+
+
 window.addEventListener(
 "mousemove",
 e=>{
@@ -1075,6 +1178,8 @@ mouse.y=e.clientY;
 
 
 
+if(cursor){
+
 cursor.style.left =
 mouse.x+"px";
 
@@ -1082,5 +1187,34 @@ mouse.x+"px";
 cursor.style.top =
 mouse.y+"px";
 
+}
+
 
 });
+
+
+
+
+
+window.addEventListener(
+"touchmove",
+e=>{
+
+
+let touch =
+e.touches[0];
+
+
+mouse.x =
+touch.clientX;
+
+
+mouse.y =
+touch.clientY;
+
+
+},
+{
+passive:true
+}
+);
