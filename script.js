@@ -1137,7 +1137,7 @@ height
 
 
 
-drawBackground();
+//drawBackground();
 
 drawFragments();
 
