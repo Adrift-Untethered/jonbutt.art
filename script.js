@@ -793,8 +793,7 @@ movement*0.0025;
 portals.forEach(p=>{
 
 
-p.strength*=0.985;
-
+p.strength *= isMobile ? 0.995 : 0.985;
 
 
 if(p.strength>0.30){
