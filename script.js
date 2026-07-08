@@ -485,7 +485,7 @@ f.y+=f.vy;
 
 
 checkPortalReveal(f);
-
+holdPortalOpening(f);
 
 
 
