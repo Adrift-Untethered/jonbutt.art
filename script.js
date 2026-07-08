@@ -587,7 +587,7 @@ ctx.globalAlpha=1;
 function createPortals(){
 
 
-portals=[
+portals = [
 
 
 {
@@ -596,12 +596,13 @@ element:
 document.getElementById("workPortal"),
 
 x:
-width*0.70,
+isMobile ? width*0.68 : width*0.70,
 
 y:
-height*0.35,
+isMobile ? height*0.32 : height*0.35,
 
-radius:120,
+radius:
+isMobile ? 160 : 120,
 
 strength:0
 
@@ -615,12 +616,13 @@ element:
 document.getElementById("archivePortal"),
 
 x:
-width*0.65,
+isMobile ? width*0.68 : width*0.65,
 
 y:
-height*0.70,
+isMobile ? height*0.68 : height*0.70,
 
-radius:120,
+radius:
+isMobile ? 160 : 120,
 
 strength:0
 
@@ -634,12 +636,13 @@ element:
 document.getElementById("aboutPortal"),
 
 x:
-width*0.30,
+isMobile ? width*0.32 : width*0.30,
 
 y:
-height*0.75,
+isMobile ? height*0.75 : height*0.75,
 
-radius:120,
+radius:
+isMobile ? 160 : 120,
 
 strength:0
 
@@ -653,12 +656,13 @@ element:
 document.getElementById("contactPortal"),
 
 x:
-width*0.55,
+isMobile ? width*0.50 : width*0.55,
 
 y:
-height*0.22,
+isMobile ? height*0.22 : height*0.22,
 
-radius:120,
+radius:
+isMobile ? 160 : 120,
 
 strength:0
 
