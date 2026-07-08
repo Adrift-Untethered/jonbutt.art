@@ -1222,3 +1222,13 @@ touch.clientY;
 passive:true
 }
 );
+
+window.addEventListener(
+"touchend",
+()=>{
+
+mouse.x = -10000;
+mouse.y = -10000;
+
+}
+);
