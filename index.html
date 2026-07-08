@@ -1,35 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>New Website Coming Soon</title>
+<title>Jon Butt - Artist</title>
 
-<style>
-body {
-    margin: 0;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: Arial, sans-serif;
-    text-align: center;
-    background: white;
-    color: #222;
-}
-
-h1 {
-    font-size: 2rem;
-    font-weight: 400;
-}
-</style>
+<link rel="stylesheet" href="style.css">
 
 </head>
 
+
 <body>
-    <main>
-        <h1>New website coming soon</h1>
-    </main>
+
+
+<!-- Hidden navigation portals -->
+
+<div id="portals">
+
+
+    <a class="portal"
+       id="workPortal"
+       href="folio.html">
+
+        WORK
+
+    </a>
+
+
+
+    <a class="portal"
+       id="archivePortal"
+       href="archive.html">
+
+        ARCHIVE
+
+    </a>
+
+
+
+    <a class="portal"
+       id="aboutPortal"
+       href="about.html">
+
+        ABOUT
+
+    </a>
+
+
+
+    <a class="portal"
+       id="contactPortal"
+       href="contact.html">
+
+        CONTACT
+
+    </a>
+
+
+</div>
+
+
+
+
+
+<!-- Main interactive forest/image canvas -->
+
+<canvas id="canvas"></canvas>
+
+
+
+
+
+<!-- Artist identity layer -->
+
+<div class="message">
+
+
+<h1 id="archiveText">
+
+Jon Butt - Artist
+
+</h1>
+
+
+</div>
+
+
+
+
+
+<!-- Custom cursor -->
+
+<div id="cursor"></div>
+
+
+
+
+<script src="script.js"></script>
+
+
 </body>
+
 </html>
