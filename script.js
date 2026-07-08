@@ -485,7 +485,7 @@ f.y+=f.vy;
 
 
 checkPortalReveal(f);
-
+holdPortalOpening(f);
 
 
 f.rotation +=
@@ -869,7 +869,55 @@ p.element.classList.remove(
 
 
 
+function holdPortalOpening(f){
 
+
+portals.forEach(p=>{
+
+
+    if(p.revealedTimer > 0){
+
+
+        let dx =
+        f.homeX - p.x;
+
+
+        let dy =
+        f.homeY - p.y;
+
+
+
+        let distance =
+        Math.sqrt(
+            dx*dx +
+            dy*dy
+        );
+
+
+
+        if(distance < p.radius){
+
+
+            f.vx +=
+            (dx/distance) *
+            0.002;
+
+
+            f.vy +=
+            (dy/distance) *
+            0.002;
+
+
+        }
+
+
+    }
+
+
+});
+
+
+}
 
 
 
