@@ -42,7 +42,7 @@ isMobile ? 23 : 43;
 
 
 const FORCE_RADIUS =
-isMobile ? 130 : 180;
+isMobile ? 170 : 180;
 
 
 
