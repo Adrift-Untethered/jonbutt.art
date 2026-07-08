@@ -603,7 +603,7 @@ isMobile ? height*0.32 : height*0.35,
 radius:
 isMobile ? 160 : 120,
 
-strength:0
+strength:0,
 
 revealedTimer:0
 
@@ -625,7 +625,7 @@ isMobile ? height*0.68 : height*0.70,
 radius:
 isMobile ? 160 : 120,
 
-strength:0
+strength:0,
 
 revealedTimer:0
     
@@ -647,7 +647,7 @@ isMobile ? height*0.75 : height*0.75,
 radius:
 isMobile ? 160 : 120,
 
-strength:0
+strength:0,
 
 revealedTimer:0
     
@@ -669,7 +669,7 @@ isMobile ? height*0.22 : height*0.22,
 radius:
 isMobile ? 160 : 120,
 
-strength:0
+strength:0,
 
 revealedTimer:0
     
