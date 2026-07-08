@@ -458,6 +458,12 @@ f.rotationDirection;
 
 
 
+
+// =========================
+// PORTAL-AWARE HEALING
+// =========================
+
+
 let nearOpenPortal = false;
 
 
@@ -477,7 +483,10 @@ portals.forEach(p=>{
         );
 
 
-        if(distance < p.radius){
+        if(
+        distance <
+        (isMobile ? p.radius*1.5 : p.radius)
+        ){
 
             nearOpenPortal = true;
 
@@ -495,11 +504,16 @@ let healingStrength =
 f.spring;
 
 
+
 if(nearOpenPortal){
 
-    healingStrength *= 0.15;
+
+    healingStrength *=
+    isMobile ? 0.05 : 0.15;
+
 
 }
+
 
 
 
@@ -519,6 +533,7 @@ healingStrength;
 
 
 
+
 f.vx*=0.90;
 
 f.vy*=0.90;
@@ -531,8 +546,10 @@ f.y+=f.vy;
 
 
 
+
 checkPortalReveal(f);
-holdPortalOpening(f);
+
+
 
 
 f.rotation +=
@@ -616,7 +633,6 @@ ctx.globalAlpha=1;
 
 
 }
-
 
 
 
@@ -844,7 +860,7 @@ if(p.strength > 0.30){
 
 
 p.revealedTimer =
-isMobile ? 360 : 120;
+isMobile ? 480 : 120;
 
 
 }
