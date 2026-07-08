@@ -405,3 +405,21 @@ opacity:1;
 
 
 }
+
+@media (max-width:768px){
+
+
+.portal {
+
+width:85px;
+
+height:85px;
+
+font-size:10px;
+
+
+}
+
+
+
+}
