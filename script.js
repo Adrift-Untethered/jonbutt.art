@@ -16,7 +16,6 @@ let fragments = [];
 let dust = [];
 let textParticles = [];
 let portals = [];
-let imagePlacement = null;
 
 let mouse = {
 
@@ -123,7 +122,6 @@ y:
 
 image.onload = ()=>{
 
-imagePlacement = placement();
     
 
 createFragments();
@@ -157,7 +155,7 @@ function createFragments(){
 
 
 const p =
-imagePlacement;
+placement();
 
 
 
@@ -345,7 +343,7 @@ function drawBackground(){
 
 
 const p =
-imagePlacement;
+placement();
 
 
 
