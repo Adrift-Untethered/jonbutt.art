@@ -29,14 +29,20 @@ let mouse = {
 const isMobile =
 window.innerWidth < 768;
 
-
+const isSafari =
+navigator.userAgent.includes("Safari") &&
+!navigator.userAgent.includes("Chrome");
 
 const COLS =
-isMobile ? 35 : 65;
+isSafari ? 55 :
+isMobile ? 35 :
+65;
 
 
 const ROWS =
-isMobile ? 23 : 43;
+isSafari ? 36 :
+isMobile ? 23 :
+43;
 
 
 
