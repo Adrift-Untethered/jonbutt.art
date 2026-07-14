@@ -195,30 +195,86 @@ function drawFragments(step) {
   ctx.globalAlpha = 1;
 }
 
-function createPortals() {
-  const definitions = [
-    ["workPortal", 0.7, 0.35],
-    ["archivePortal", 0.65, 0.7],
-    ["aboutPortal", 0.3, 0.75],
-    ["contactPortal", 0.55, 0.22]
-  ];
+function getPortalLayout() {
+  const phone = width < 600;
+  const tablet = width < 1000;
+  const shortLandscape = width > height && height < 600;
 
-  portals = definitions
+  if (shortLandscape) {
+    return {
+      radius: 90,
+      positions: [
+        ["contactPortal", 0.18, 0.28],
+        ["workPortal", 0.40, 0.70],
+        ["aboutPortal", 0.64, 0.28],
+        ["archivePortal", 0.84, 0.70]
+      ]
+    };
+  }
+
+  if (phone) {
+    // A loose zig-zag keeps the circles readable without forming a rigid grid.
+    return {
+      radius: 90,
+      positions: [
+        ["contactPortal", 0.30, 0.20],
+        ["workPortal", 0.70, 0.38],
+        ["aboutPortal", 0.30, 0.62],
+        ["archivePortal", 0.70, 0.80]
+      ]
+    };
+  }
+
+  if (tablet) {
+    return {
+      radius: 105,
+      positions: [
+        ["contactPortal", 0.28, 0.28],
+        ["workPortal", 0.72, 0.32],
+        ["aboutPortal", 0.30, 0.72],
+        ["archivePortal", 0.70, 0.70]
+      ]
+    };
+  }
+
+  return {
+    radius: 120,
+    positions: [
+      ["contactPortal", 0.35, 0.24],
+      ["workPortal", 0.73, 0.34],
+      ["aboutPortal", 0.28, 0.72],
+      ["archivePortal", 0.68, 0.72]
+    ]
+  };
+}
+
+function createPortals() {
+  const layout = getPortalLayout();
+  const horizontalMargin = Math.min(layout.radius, width * 0.2);
+  const verticalMargin = Math.min(layout.radius, height * 0.16);
+
+  portals = layout.positions
     .map(([id, xRatio, yRatio]) => {
       const element = document.getElementById(id);
       if (!element) return null;
 
+      // Ratios create the composition; clamping keeps circles away from cut-offs,
+      // notches and browser chrome on unusually narrow or short screens.
+      const x = Math.max(horizontalMargin, Math.min(width - horizontalMargin, width * xRatio));
+      const y = Math.max(verticalMargin, Math.min(height - verticalMargin, height * yRatio));
+
       const portal = {
         element,
-        x: width * xRatio,
-        y: height * yRatio,
-        radius: 120,
+        x,
+        y,
+        radius: layout.radius,
         strength: 0,
         frameGain: 0,
         revealed: false
       };
       element.style.left = `${portal.x}px`;
       element.style.top = `${portal.y}px`;
+      element.classList.remove("revealed");
       return portal;
     })
     .filter(Boolean);
