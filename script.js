@@ -444,6 +444,9 @@ f.vy +=
 *
 force;
 
+f.vx = Math.max(-8, Math.min(8, f.vx));
+
+f.vy = Math.max(-8, Math.min(8, f.vy));
 
 
 f.rotationVelocity +=
