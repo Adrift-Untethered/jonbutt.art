@@ -47,7 +47,7 @@ isMobile ? 130 : 180;
 
 
 const DUST_COUNT =
-isMobile ? 80 : 250;
+isMobile ? 30 : 80;
 
 
 
