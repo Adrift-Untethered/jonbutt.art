@@ -204,6 +204,10 @@ function getPortalLayout() {
     return {
       radius: 90,
       positions: [
+        ["workPortal", 0.20, 0.28],
+        ["archivePortal", 0.20, 0.72],
+        ["aboutPortal", 0.80, 0.72],
+        ["contactPortal", 0.80, 0.28]
         ["contactPortal", 0.18, 0.28],
         ["workPortal", 0.40, 0.70],
         ["aboutPortal", 0.64, 0.28],
@@ -217,6 +221,10 @@ function getPortalLayout() {
     return {
       radius: 90,
       positions: [
+        ["workPortal", 0.30, 0.20],
+        ["archivePortal", 0.30, 0.62],
+        ["aboutPortal", 0.70, 0.80],
+        ["contactPortal", 0.70, 0.38]
         ["contactPortal", 0.30, 0.20],
         ["workPortal", 0.70, 0.38],
         ["aboutPortal", 0.30, 0.62],
@@ -229,6 +237,10 @@ function getPortalLayout() {
     return {
       radius: 105,
       positions: [
+        ["workPortal", 0.28, 0.28],
+        ["archivePortal", 0.30, 0.72],
+        ["aboutPortal", 0.70, 0.70],
+        ["contactPortal", 0.72, 0.32]
         ["contactPortal", 0.28, 0.28],
         ["workPortal", 0.72, 0.32],
         ["aboutPortal", 0.30, 0.72],
@@ -240,6 +252,10 @@ function getPortalLayout() {
   return {
     radius: 120,
     positions: [
+      ["workPortal", 0.35, 0.24],
+      ["archivePortal", 0.28, 0.72],
+      ["aboutPortal", 0.68, 0.72],
+      ["contactPortal", 0.73, 0.34]
       ["contactPortal", 0.35, 0.24],
       ["workPortal", 0.73, 0.34],
       ["aboutPortal", 0.28, 0.72],
