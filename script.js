@@ -496,12 +496,13 @@ checkPortalReveal(f);
 
 
 f.rotation +=
-f.rotationVelocity;
+f.rotationVelocity *
+(isSafari ? 0.45 : 1);
 
 
 
 f.rotationVelocity *=
-f.rotationResistance;
+isSafari ? 0.88 : f.rotationResistance;
 
 
 
