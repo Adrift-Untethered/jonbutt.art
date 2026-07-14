@@ -532,9 +532,9 @@ f.y+f.h/2
 
 
 
-// ctx.rotate(
-// f.rotation
-// );
+ctx.rotate(
+f.rotation
+);
 
 
 
