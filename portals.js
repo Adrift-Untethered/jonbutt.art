@@ -39,6 +39,8 @@
     let movingCopies = [];
     let animationFrame;
     let resizeTimer;
+    let layoutViewportWidth = innerWidth;
+    let layoutViewportHeight = innerHeight;
     let cycleStarted = performance.now();
     let needsLayout = true;
 
@@ -210,6 +212,20 @@
     animationFrame = requestAnimationFrame(animateClone);
 
     addEventListener("resize", () => {
+      const nextWidth = innerWidth;
+      const nextHeight = innerHeight;
+      const widthChanged = Math.abs(nextWidth - layoutViewportWidth) > 1;
+      const heightChanged = Math.abs(nextHeight - layoutViewportHeight) > 1;
+      const mobileViewport = matchMedia("(pointer: coarse), (max-width: 767px)").matches;
+
+      // Mobile browsers repeatedly change the viewport height as their address bar
+      // expands and contracts during a scroll. That is not a new layout, so keep
+      // the current animation cycle intact. A width/orientation change still
+      // triggers a fresh measurement.
+      if (!widthChanged && (!heightChanged || mobileViewport)) return;
+
+      layoutViewportWidth = nextWidth;
+      layoutViewportHeight = nextHeight;
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(() => {
         clearMovingCopies();
