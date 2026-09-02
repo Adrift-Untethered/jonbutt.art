@@ -1,0 +1,76 @@
+/* Shared cursor and text physics. Image/canvas effects remain page-specific. */
+
+.site-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  display: none;
+  width: 14px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    #fff 0%,
+    rgba(255, 255, 255, 0.9) 35%,
+    transparent 75%
+  );
+  box-shadow:
+    0 0 15px #fff,
+    0 0 35px rgba(255, 255, 255, 0.9);
+  opacity: 0;
+  pointer-events: none;
+  transform: translate3d(-50%, -50%, 0);
+  transition: opacity 120ms ease;
+  animation: site-cursor-pulse 3s ease-in-out infinite;
+}
+
+.site-cursor.is-visible {
+  opacity: 0.85;
+}
+
+.gravity-char,
+.gravity-word {
+  position: relative;
+  display: inline-block;
+  will-change: transform;
+}
+
+.gravity-token {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.gravity-char {
+  white-space: pre;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  html.gravity-cursor,
+  html.gravity-cursor body,
+  html.gravity-cursor a,
+  html.gravity-cursor button {
+    cursor: none;
+  }
+
+  .site-cursor {
+    display: block;
+  }
+}
+
+@keyframes site-cursor-pulse {
+  0%,
+  100% {
+    filter: brightness(0.9);
+  }
+
+  50% {
+    filter: brightness(1.2);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-cursor {
+    animation: none;
+  }
+}

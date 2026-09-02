@@ -1,6 +1,5 @@
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d", { alpha: true });
-const cursor = document.getElementById("cursor");
 
 const image = new Image();
 
@@ -23,7 +22,6 @@ let height = 0;
 let cover = null;
 let fragments = [];
 let dust = [];
-let textParticles = [];
 let portals = [];
 let lastFrame = 0;
 let resizeFrame = 0;
@@ -54,7 +52,6 @@ function resize() {
   createFragments();
   createDust();
   createPortals();
-  layoutTextParticles();
 
   if (prefersReducedMotion) drawStaticFrame();
 }
@@ -338,79 +335,6 @@ function drawDust(step) {
   }
 }
 
-function createTextParticles() {
-  const text = document.getElementById("archiveText");
-  if (!text) return;
-
-  const nodes = Array.from(text.childNodes);
-  text.innerHTML = "";
-
-  for (const node of nodes) {
-    if (node.nodeType === Node.TEXT_NODE) {
-      for (const letter of node.textContent) {
-        const span = document.createElement("span");
-        span.className = "char";
-        span.textContent = letter;
-        text.appendChild(span);
-        textParticles.push({
-          element: span,
-          x: 0,
-          y: 0,
-          homeX: 0,
-          homeY: 0,
-          vx: 0,
-          vy: 0,
-          mass: 0.5 + Math.random() * 1.5,
-          spring: 0.06
-        });
-      }
-    } else if (node.nodeName === "BR") {
-      text.appendChild(document.createElement("br"));
-    }
-  }
-
-  layoutTextParticles();
-}
-
-function layoutTextParticles() {
-  for (const particle of textParticles) {
-    particle.element.style.transform = "none";
-  }
-
-  for (const particle of textParticles) {
-    const rect = particle.element.getBoundingClientRect();
-    particle.x = particle.homeX = rect.left;
-    particle.y = particle.homeY = rect.top;
-    particle.vx = 0;
-    particle.vy = 0;
-  }
-}
-
-function drawTextPhysics(step) {
-  for (const particle of textParticles) {
-    const dx = particle.x - mouse.x;
-    const dy = particle.y - mouse.y;
-    const distanceSquared = dx * dx + dy * dy;
-
-    if (distanceSquared > 0 && distanceSquared < 140 * 140) {
-      const distance = Math.sqrt(distanceSquared);
-      const force = (140 - distance) / 140;
-      particle.vx += (dx / distance) * force * (2.5 / particle.mass) * step;
-      particle.vy += (dy / distance) * force * (2.5 / particle.mass) * step;
-    }
-
-    particle.vx += (particle.homeX - particle.x) * particle.spring * step;
-    particle.vy += (particle.homeY - particle.y) * particle.spring * step;
-    particle.vx *= Math.pow(0.78, step);
-    particle.vy *= Math.pow(0.78, step);
-    particle.x += particle.vx * step;
-    particle.y += particle.vy * step;
-    particle.element.style.transform = `translate3d(${particle.x - particle.homeX}px, ${
-      particle.y - particle.homeY
-    }px, 0)`;
-  }
-}
-
 function drawStaticFrame() {
   ctx.clearRect(0, 0, width, height);
   drawBackground();
@@ -437,18 +361,11 @@ function animate(now) {
   drawFragments(step);
   updatePortals(step);
   drawDust(step);
-  drawTextPhysics(step);
 }
 
 function updatePointer(event) {
   mouse.x = event.clientX;
   mouse.y = event.clientY;
-
-  if (cursor) {
-    // Keep any centring transform supplied by the existing cursor CSS intact.
-    cursor.style.left = `${mouse.x}px`;
-    cursor.style.top = `${mouse.y}px`;
-  }
 }
 
 window.addEventListener("pointermove", updatePointer, { passive: true });
@@ -466,7 +383,6 @@ document.addEventListener("visibilitychange", () => {
 });
 
 image.addEventListener("load", () => {
-  createTextParticles();
   resize();
 
   if (!prefersReducedMotion) {

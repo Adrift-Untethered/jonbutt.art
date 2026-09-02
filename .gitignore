@@ -1,0 +1,16 @@
+# macOS metadata
+.DS_Store
+
+# Local project documentation — keep out of the public GitHub Pages repository
+AGENTS.md
+CHANGELOG.md
+PROJECT-STATUS.md
+SITE-BUILDING-GUIDE.md
+UPLOAD-INSTRUCTIONS.txt
+
+# Local archive references and drafts — not part of the public website
+archive-template-g1.html
+archive-template-g2.html
+archive-template-no-sidebar.html
+work.html
+.reset-baselines/

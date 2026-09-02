@@ -27,6 +27,97 @@ body {
   min-height: 100dvh;
 }
 
+.site-header {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 20;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  gap: clamp(16px, 3vw, 42px);
+  align-items: center;
+  padding: 22px clamp(24px, 5vw, 76px);
+  background: linear-gradient(#050505 35%, transparent);
+  color: #e8e8e3;
+}
+
+.site-name,
+.site-nav a {
+  font-size: 11px;
+  line-height: 1;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.site-name {
+  justify-self: start;
+  color: inherit;
+  text-decoration: none;
+}
+
+.site-name,
+.site-nav a {
+  margin: -0.15em -0.3em;
+  padding: 0.15em 0.3em;
+}
+
+.site-signal {
+  display: grid;
+  gap: 4px;
+  justify-items: center;
+  color: rgba(232, 232, 227, 0.58);
+  font-size: 9px;
+  line-height: 1.15;
+  letter-spacing: 0.16em;
+  text-align: center;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.site-signal-clock {
+  color: #e8e8e3;
+}
+
+.site-signal-clock > span {
+  color: rgba(232, 232, 227, 0.58);
+}
+
+.site-nav {
+  display: flex;
+  gap: clamp(16px, 3vw, 42px);
+  justify-self: end;
+}
+
+.site-nav a {
+  color: rgba(232, 232, 227, 0.58);
+  text-decoration: none;
+  transition: color 180ms ease;
+}
+
+.site-nav a:hover,
+.site-nav a:focus-visible,
+.site-name:hover,
+.site-name:focus-visible {
+  color: #e8e8e3;
+}
+
+.site-nav a:focus-visible,
+.site-name:focus-visible {
+  outline: 1px solid #e8e8e3;
+  outline-offset: 6px;
+}
+
+@media (max-width: 1100px) {
+  .site-header,
+  .site-nav {
+    gap: 14px;
+  }
+
+  .site-signal {
+    font-size: 8px;
+    letter-spacing: 0.11em;
+  }
+}
+
 /* =========================
    PORTAL LAYER
    behind forest canvas
@@ -134,12 +225,6 @@ h1 {
   font: 300 clamp(25px, 3vw, 50px) / 1.5 Arial, Helvetica, sans-serif;
 }
 
-.char {
-  position: relative;
-  display: inline-block;
-  white-space: pre;
-}
-
 p {
   margin: clamp(24px, 5vh, 45px) 0 0;
   font-size: clamp(11px, 1.1vw, 14px);
@@ -148,59 +233,26 @@ p {
 }
 
 /* =========================
-   CUSTOM CURSOR
-   ========================= */
-
-#cursor {
-  display: none;
-  position: fixed;
-  width: 14px;
-  aspect-ratio: 1;
-  z-index: 100;
-  border-radius: 50%;
-  background: radial-gradient(
-    circle,
-    #fff 0%,
-    rgba(255, 255, 255, 0.9) 35%,
-    transparent 75%
-  );
-  box-shadow:
-    0 0 15px #fff,
-    0 0 35px rgba(255, 255, 255, 0.9);
-  pointer-events: none;
-  transform: translate(-50%, -50%);
-  animation: pulse 3s ease-in-out infinite;
-}
-
-@media (hover: hover) and (pointer: fine) {
-  html,
-  body,
-  a,
-  button {
-    cursor: none;
-  }
-
-  #cursor {
-    display: block;
-  }
-}
-
-@keyframes pulse {
-  0%,
-  100% {
-    opacity: 0.75;
-  }
-
-  50% {
-    opacity: 1;
-  }
-}
-
-/* =========================
    TABLET AND PHONE
    ========================= */
 
 @media (max-width: 767px) {
+  .site-header {
+    align-items: flex-start;
+  }
+
+  .site-signal {
+    gap: 3px;
+    font-size: 8px;
+    letter-spacing: 0.11em;
+  }
+
+  .site-nav {
+    display: grid;
+    gap: 13px;
+    justify-items: end;
+  }
+
   .portal {
     width: clamp(82px, 24vw, 104px);
     padding: 9px;
@@ -242,9 +294,5 @@ p {
     transform: translate(-50%, -50%) scale(1);
     transition: none;
     pointer-events: auto;
-  }
-
-  #cursor {
-    animation: none;
   }
 }

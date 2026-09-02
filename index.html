@@ -7,26 +7,42 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>New Website Coming Soon</title>
+<meta name="description" content="Jon Butt — selected work, archive and information.">
 
-<link rel="stylesheet" href="style.css">
+<title>Jon Butt</title>
+
+<link rel="stylesheet" href="style.css?v=5">
+<link rel="stylesheet" href="site-effects.css?v=4">
 
 </head>
 
 
 <body>
 
+<header class="site-header landing-header">
+  <a class="site-name" href="index.html">Jon Butt</a>
+  <div class="site-signal" role="group" aria-label="Local time on Wurundjeri Woi Wurrung Country" data-no-gravity>
+    <span class="site-signal-country">Wurundjeri Woi Wurrung Country</span>
+    <span class="site-signal-clock"><span>Local signal</span> <time data-site-time>--:--:--</time></span>
+  </div>
+  <nav class="site-nav" aria-label="Primary navigation">
+    <a href="work-v2.html">Portals</a>
+    <a href="archive.html">Archive</a>
+    <a href="about.html">About</a>
+  </nav>
+</header>
 
-<!-- Temporary landing page portals -->
 
-<div id="portals">
+<!-- Main site navigation portals -->
+
+<div id="portals" aria-label="Site navigation">
 
 
     <a class="portal"
        id="workPortal"
-       href="#">
+       href="work-v2.html">
 
-        WEBSITE
+        PORTALS
 
     </a>
 
@@ -34,9 +50,9 @@
 
     <a class="portal"
        id="archivePortal"
-       href="#">
+       href="archive.html">
 
-        COMING
+        ARCHIVE
 
     </a>
 
@@ -44,19 +60,9 @@
 
     <a class="portal"
        id="aboutPortal"
-       href="#">
+       href="about.html">
 
-        SOON
-
-    </a>
-
-
-
-    <a class="portal"
-       id="contactPortal"
-       href="#">
-
-        NEW
+        ABOUT
 
     </a>
 
@@ -69,7 +75,7 @@
 
 <!-- Main interactive image canvas -->
 
-<canvas id="canvas"></canvas>
+<canvas id="canvas" aria-hidden="true"></canvas>
 
 
 
@@ -80,9 +86,9 @@
 <div class="message">
 
 
-<h1 id="archiveText">
+<h1 id="archiveText" data-gravity="letter">
 
-New Website Coming Soon
+Jon Butt
 
 </h1>
 
@@ -93,14 +99,8 @@ New Website Coming Soon
 
 
 
-<!-- Custom cursor -->
-
-<div id="cursor"></div>
-
-
-
-
-<script src="script.js"></script>
+<script src="site-effects.js?v=5" defer></script>
+<script src="script.js?v=2" defer></script>
 
 
 </body>
