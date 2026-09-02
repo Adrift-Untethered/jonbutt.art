@@ -444,19 +444,59 @@ a {
 
 @media (max-width: 760px) {
   .site-header {
-    align-items: flex-start;
+    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-areas:
+      "name signal"
+      "nav nav";
+    column-gap: 12px;
+    row-gap: 8px;
+    align-items: start;
+    padding: 14px max(20px, env(safe-area-inset-right)) 10px max(20px, env(safe-area-inset-left));
+    background: linear-gradient(rgba(5, 5, 5, 0.92) 0%, rgba(5, 5, 5, 0.68) 72%, transparent 100%);
+  }
+
+  .site-name {
+    grid-area: name;
+    align-self: center;
+    margin: 0;
+    padding: 0;
   }
 
   .site-signal {
-    gap: 3px;
-    font-size: 8px;
-    letter-spacing: 0.11em;
+    grid-area: signal;
+    gap: 2px;
+    justify-self: end;
+    justify-items: end;
+    font-size: 7.5px;
+    letter-spacing: 0.08em;
+    text-align: right;
   }
 
   .site-nav {
+    grid-area: nav;
     display: grid;
-    gap: 13px;
-    justify-items: end;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0;
+    width: 100%;
+    justify-self: stretch;
+    background: rgba(5, 5, 5, 0.2);
+    border-top: 1px solid rgba(232, 232, 227, 0.11);
+  }
+
+  .site-nav a {
+    display: grid;
+    min-height: 44px;
+    margin: 0;
+    padding: 0 4px;
+    font-size: 10px;
+    letter-spacing: 0.13em;
+    place-items: center;
+  }
+
+  .site-nav a[aria-current="page"]::after {
+    right: 12px;
+    bottom: 5px;
+    left: 12px;
   }
 
   .page-intro,
