@@ -451,8 +451,24 @@
     grid-template-columns: 1fr;
   }
 
+  .gallery-track {
+    width: 100%;
+  }
+
   .gallery-slide {
+    display: grid;
+    flex-basis: 100%;
+    width: 100%;
     height: min(52vh, 420px);
+    box-sizing: border-box;
+    place-items: center;
+  }
+
+  .gallery-slide img {
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    object-fit: contain;
   }
 
   .gallery-footer {
