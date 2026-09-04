@@ -74,7 +74,21 @@ body {
 }
 
 .site-signal-clock {
+  display: inline-flex;
+  gap: 0.55em;
+  align-items: center;
   color: #e8e8e3;
+}
+
+.site-signal-clock::before {
+  width: 6px;
+  height: 6px;
+  flex: none;
+  border-radius: 50%;
+  background: #d29a61;
+  box-shadow: 0 0 14px rgba(210, 154, 97, 0.78);
+  animation: site-signal-pulse 2.4s ease-in-out infinite;
+  content: "";
 }
 
 .site-signal-clock > span {
@@ -116,6 +130,11 @@ body {
     font-size: 8px;
     letter-spacing: 0.11em;
   }
+}
+
+@keyframes site-signal-pulse {
+  0%, 100% { opacity: 0.45; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.15); }
 }
 
 /* =========================
@@ -321,6 +340,10 @@ p {
 
 /* Keep the interface usable when motion has been disabled at OS level. */
 @media (prefers-reduced-motion: reduce) {
+  .site-signal-clock::before {
+    animation: none;
+  }
+
   .portal,
   .portal.revealed,
   .portal:focus-visible {
