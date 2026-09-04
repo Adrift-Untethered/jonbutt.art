@@ -861,6 +861,36 @@
   }
 }
 
+@media (hover: none), (pointer: coarse) {
+  .minimal-rail {
+    --paper: #f3f7f5;
+    --muted: rgba(243, 247, 245, 0.82);
+    --line: rgba(243, 247, 245, 0.44);
+  }
+
+  .minimal-rail::before {
+    opacity: 0.56;
+  }
+
+  .minimal-rail .programme-type,
+  .minimal-rail .rail-duration,
+  .minimal-rail .rail-feature-image figcaption {
+    color: rgba(243, 247, 245, 0.76);
+  }
+
+  .minimal-rail .rail-feature-image img {
+    filter: grayscale(0.12) saturate(0.68) contrast(1.12);
+    mix-blend-mode: normal;
+    opacity: 0.94;
+  }
+
+  .minimal-rail .rail-player-open {
+    padding-right: 10px;
+    padding-left: 10px;
+    background: rgba(2, 5, 4, 0.14);
+  }
+}
+
 .rail-feature-image {
   margin: 0;
   padding: 0 0 22px;
