@@ -467,7 +467,7 @@ a {
     gap: 2px;
     justify-self: end;
     justify-items: end;
-    font-size: 7.5px;
+    font-size: 8.5px;
     letter-spacing: 0.08em;
     text-align: right;
   }
@@ -488,7 +488,7 @@ a {
     min-height: 44px;
     margin: 0;
     padding: 0 4px;
-    font-size: 10px;
+    font-size: 11px;
     letter-spacing: 0.13em;
     place-items: center;
   }
