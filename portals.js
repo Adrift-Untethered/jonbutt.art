@@ -37,12 +37,13 @@
     let sourcePositions = [];
     let trails = [];
     let movingCopies = [];
-    let animationFrame;
+    let animationFrame = 0;
     let resizeTimer;
     let layoutViewportWidth = innerWidth;
     let layoutViewportHeight = innerHeight;
-    let cycleStarted = performance.now();
+    let cycleStarted = 0;
     let needsLayout = true;
+    let pageIsActive = true;
 
     const createMovingCopy = bornAt => {
       const clone = document.createElement("span");
@@ -208,8 +209,31 @@
       animationFrame = requestAnimationFrame(animateClone);
     };
 
-    layoutClone();
-    animationFrame = requestAnimationFrame(animateClone);
+    const nextFrame = () => new Promise(resolve => requestAnimationFrame(resolve));
+
+    const startCloneAnimation = async () => {
+      if (document.readyState !== "complete") {
+        await new Promise(resolve => addEventListener("load", resolve, { once: true }));
+      }
+
+      if (document.fonts?.ready) await document.fonts.ready;
+
+      // A fresh mobile navigation can settle the viewport and text layout after
+      // deferred scripts first run. Measure only after two painted frames so the
+      // first copy begins at the visible static text, just as it does on refresh.
+      await nextFrame();
+      await nextFrame();
+      if (!pageIsActive || !staticEnter.isConnected) return;
+
+      layoutViewportWidth = innerWidth;
+      layoutViewportHeight = innerHeight;
+      cycleStarted = performance.now();
+      needsLayout = true;
+      layoutClone();
+      animationFrame = requestAnimationFrame(animateClone);
+    };
+
+    startCloneAnimation();
 
     addEventListener("resize", () => {
       const nextWidth = innerWidth;
@@ -235,6 +259,7 @@
     }, { passive: true });
 
     addEventListener("pagehide", () => {
+      pageIsActive = false;
       cancelAnimationFrame(animationFrame);
       clearMovingCopies();
     }, { once: true });
