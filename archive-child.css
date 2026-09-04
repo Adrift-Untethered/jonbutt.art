@@ -1474,54 +1474,13 @@ html.gravity-cursor .listening-room-dialog button {
   border-bottom: 1px solid var(--line);
 }
 
-.repository-reading summary {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 24px;
-  align-items: center;
+.repository-reading-heading {
+  margin: 0;
   padding: clamp(26px, 4vw, 50px) 0;
-  cursor: pointer;
   font-size: clamp(25px, 3.2vw, 48px);
   font-weight: 300;
   line-height: 1;
   letter-spacing: -0.035em;
-  list-style: none;
-}
-
-.repository-reading summary::-webkit-details-marker {
-  display: none;
-}
-
-.repository-reading-action {
-  display: flex;
-  gap: 14px;
-  align-items: center;
-  font-size: 9px;
-  line-height: 1.5;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-}
-
-.repository-reading-action b {
-  font-size: 23px;
-  font-weight: 300;
-  transition: transform 220ms ease;
-}
-
-.repository-reading .when-open {
-  display: none;
-}
-
-.repository-reading[open] .when-closed {
-  display: none;
-}
-
-.repository-reading[open] .when-open {
-  display: inline;
-}
-
-.repository-reading[open] .repository-reading-action b {
-  transform: rotate(45deg);
 }
 
 .repository-reading-content {
@@ -1640,14 +1599,6 @@ html.gravity-cursor .listening-room-dialog button {
   .repository-section-heading {
     grid-template-columns: 1fr;
     gap: 20px;
-  }
-
-  .repository-reading summary {
-    grid-template-columns: 1fr;
-  }
-
-  .repository-reading-action {
-    justify-content: space-between;
   }
 
   .repository-partner-links a {
