@@ -866,6 +866,8 @@
     --paper: #f3f7f5;
     --muted: rgba(243, 247, 245, 0.82);
     --line: rgba(243, 247, 245, 0.44);
+    position: relative;
+    overflow: hidden;
   }
 
   .minimal-rail::before {
