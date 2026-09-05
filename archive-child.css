@@ -1000,6 +1000,49 @@
   font-size: 9px;
 }
 
+.play-symbol {
+  position: relative;
+  display: inline-block;
+  width: 10px;
+  height: 12px;
+  flex: none;
+  font-size: 0;
+  line-height: 0;
+}
+
+.play-symbol::before {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+  border-left: 9px solid currentColor;
+  content: "";
+  transform: translateY(-50%);
+}
+
+.play-symbol.is-paused::before,
+.play-symbol.is-paused::after {
+  position: absolute;
+  top: 0;
+  width: 2px;
+  height: 12px;
+  border: 0;
+  background: currentColor;
+  content: "";
+  transform: none;
+}
+
+.play-symbol.is-paused::before {
+  left: 1px;
+}
+
+.play-symbol.is-paused::after {
+  right: 1px;
+}
+
 .rail-duration {
   color: rgba(232, 232, 227, 0.5);
   font-size: 8px;

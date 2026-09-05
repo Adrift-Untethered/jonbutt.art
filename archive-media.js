@@ -32,7 +32,7 @@
     const playing = !audio.paused && !audio.ended;
     dialog.classList.toggle("is-playing", playing);
     playButton.setAttribute("aria-pressed", String(playing));
-    if (playIcon) playIcon.textContent = playing ? "Ⅱ" : "▶";
+    playIcon?.classList.toggle("is-paused", playing);
     if (playLabel) playLabel.textContent = playing ? "Pause" : "Play";
   };
 
